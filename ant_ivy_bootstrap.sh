@@ -2,7 +2,7 @@
 
 bs_home="$HOME/.ant/bootstrap"
 
-ant_version="1.10.2"
+ant_version="1.10.6"
 ivy_version="2.4.0"
 ant_file="apache-ant-${ant_version}-bin.tar.bz2"
 ivy_file="apache-ivy-${ivy_version}-bin.tar.gz"
@@ -42,9 +42,9 @@ EOF
 cat <<EOF
 Please add
 
-	export ANT_HOME="$HOME/.ant/home"
-	export PATH="\$ANT_HOME/bin:\$PATH"
-	export LOCAL_IVY_SETTINGS="$HOME/.ant/ivysettings.xml"
+export ANT_HOME="$HOME/.ant/home"
+export PATH="$ANT_HOME/bin:$PATH"
+export LOCAL_IVY_SETTINGS="$HOME/.ant/ivysettings.xml"
 
 to your .bash_profile and remember to point your Eclipse IvyIDE plugin to the settings in
 

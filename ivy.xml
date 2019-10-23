@@ -2,7 +2,7 @@
 <ivy-module version="2.0">
 	<info organisation="it.unimi.di.law" module="bubing"/>
 
-	<configurations defaultconf="runtime" defaultconfmapping="*->default,javadoc">
+	<configurations defaultconfmapping="*->default,javadoc">
 		<conf name="runtime"/>
 		<conf name="compile" extends="runtime"/>
 		<conf name="test" extends="compile"/>
