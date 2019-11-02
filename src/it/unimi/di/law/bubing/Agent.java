@@ -431,10 +431,10 @@ public class Agent extends JGroupsJobManager<BubingJob> {
 
 	/*Statistical Properties, as reported by StatsThread */
 
-	/*@ManagedAttribute @Description("The time elapsed since the start of the crawl")
+	@ManagedAttribute @Description("The time elapsed since the start of the crawl")
 	public long getTime() {
-		return statsThread.requestLogger.millis();
-	}*/
+		return frontier.getStatsThread().requestLogger.millis();
+	}
 
 	@ManagedAttribute @Description("Approximate size of the workbench in bytes")
 	public long getWorkbenchByteSize() {

@@ -1,6 +1,7 @@
 package it.unimi.di.law.bubing;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -114,7 +115,6 @@ import it.unimi.dsi.util.BloomFilter;
  * and possibly change some of them; see for example
  * {@link #StartupConfiguration(String, Configuration)}.
  */
-
 public class StartupConfiguration {
 	private final static Logger LOGGER = LoggerFactory.getLogger(StartupConfiguration.class);
 
@@ -415,9 +415,17 @@ public class StartupConfiguration {
 
 	private void checkRootDir() throws ConfigurationException {
 		if (rootDirChecked) return;
-		final File d = new File(rootDir);
+		File d = new File(rootDir);
 		if (crawlIsNew) {
-			if (d.exists()) throw new ConfigurationException("Root directory " + d + " exists");
+			// if (d.exists()) throw new ConfigurationException("Root directory " + d + " exists");
+			if(d.exists()){
+				try {
+					FileUtils.deleteDirectory(d);
+					d = new File(rootDir);
+				} catch (IOException ex){
+					ex.printStackTrace();
+				}
+			}
 			if (! d.mkdirs()) throw new ConfigurationException("Cannot create root directory " + d);
 		}
 		else if (! d.exists()) throw new ConfigurationException("Cannot find root directory " + rootDir + " for the crawl");

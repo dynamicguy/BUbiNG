@@ -4,14 +4,14 @@ bs_home="$HOME/.ant/bootstrap"
 
 ant_version="1.10.6"
 ivy_version="2.4.0"
-ant_file="apache-ant-${ant_version}-bin.tar.bz2"
+ant_file="apache-ant-${ant_version}-bin.tar.gz"
 ivy_file="apache-ivy-${ivy_version}-bin.tar.gz"
 ant_url="http://www.apache.org/dist/ant/binaries/${ant_file}"
 ivy_url="http://www.apache.org/dist/ant/ivy/${ivy_version}/${ivy_file}"
 
 mkdir -p "$HOME/.ant/"{home,lib,bootstrap}
 
-[[ ! -r "$bs_home/$ant_file" ]] && { echo -n 'downloading and installing ant...' && curl -so "$bs_home/$ant_file" "$ant_url" && tar -C $bs_home -jxf "$bs_home/$ant_file" && echo ' done.' || { echo "ERROR (ant)"; exit 1; } }
+[[ ! -r "$bs_home/$ant_file" ]] && { echo -n 'downloading and installing ant...' && curl -so "$bs_home/$ant_file" "$ant_url" && tar -C $bs_home -xxf "$bs_home/$ant_file" && echo ' done.' || { echo "ERROR (ant)"; exit 1; } }
 [[ ! -r "$bs_home/$ivy_file" ]] && { echo -n 'downloading and installing ivy...' && curl -so "$bs_home/$ivy_file" "$ivy_url" && tar -C $bs_home -xxf "$bs_home/$ivy_file" && echo ' done.' || { echo "ERROR (ivy)"; exit 1; } }
 
 ln -sf "$bs_home/apache-ant-${ant_version}"/{lib,bin} "$HOME/.ant/home"

@@ -1,5 +1,24 @@
 version: '3'
+
 services:
+  crawler:
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    container_name: bubing_crawler
+    image: bubing_crawler
+    volumes:
+      - bubing_crawler_data:/usr/share/crawler/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the Elasticsearch user, set to at least 65536 on modern systems
+        hard: 65536
+    networks:
+      - bubing-net
+
   elasticsearch:
     build:
       context: .
@@ -36,6 +55,7 @@ services:
       - bubing-net
 
 volumes:
+  bubing_crawler_data:
   bubing_elasticsearch_data:
 
 networks:
