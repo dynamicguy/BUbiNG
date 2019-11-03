@@ -160,3 +160,12 @@ curl -X POST "https://localhost:9200/bubing/_search" -u admin:admin --insecure -
 ```
 
 Enjoy!
+
+Start Crawl
+-----------
+
+1. First change the `listen_ip` value in file `build.xml` at line number 489 with your machine's local ip. Note that ip like 0.0.0.0, 127.0.0.1 won't work.
+ 
+2. Then un the following ant command in your terminal:
+
+    ant clean crawl
