@@ -515,7 +515,7 @@
         </exec>
         <exec executable="cmd" outputproperty="currentIP" >
             <arg value="/c"/>
-            <arg value="FOR /f &quot;tokens=1 delims=:&quot; %d IN ('ping ${myHostName} -4 -n 1 ^| find /i &quot;reply&quot;') DO FOR /F &quot;tokens=3 delims= &quot; %g IN (&quot;%d&quot;) DO echo infraServerIP=%g > myIP.properties"/>
+            <arg value="FOR /f &quot;tokens=1 delims=:&quot; %d IN ('ping ${myHostName} -4 -n 1 ^| find /i &quot;reply&quot;') DO FOR /F &quot;tokens=3 delims= &quot; %g IN (&quot;%d&quot;) DO echo infraServerIP=%g"/>
         </exec>
         <echo>currentIP : ${currentIP}</echo>
         <property name="listen_ip" value="${currentIP}"/>
