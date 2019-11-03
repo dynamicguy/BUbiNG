@@ -18,41 +18,41 @@ services:
         hard: 65536
     networks:
       - bubing-net
-#
-#  elasticsearch:
-#    build:
-#      context: .
-#      dockerfile: ./compose/elasticsearch/Dockerfile
-#    container_name: bubing_elasticsearch
-#    image: bubing_elasticsearch
-#    env_file:
-#      - ./.envs/.elasticsearch
-#    volumes:
-#      - bubing_elasticsearch_data:/usr/share/elasticsearch/data
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
-#      nofile:
-#        soft: 65536 # maximum number of open files for the Elasticsearch user, set to at least 65536 on modern systems
-#        hard: 65536
-#    ports:
-#      - 9200:9200
-#      - 9600:9600 # required for Performance Analyzer
-#    networks:
-#      - bubing-net
-#  kibana:
-#    image: amazon/opendistro-for-elasticsearch-kibana:latest
-#    container_name: bubing_kibana
-#    ports:
-#      - 5601:5601
-#    expose:
-#      - "5601"
-#    environment:
-#      ELASTICSEARCH_URL: https://bubing_elasticsearch:9200
-#      ELASTICSEARCH_HOSTS: https://bubing_elasticsearch:9200
-#    networks:
-#      - bubing-net
+
+  elasticsearch:
+    build:
+      context: .
+      dockerfile: ./compose/elasticsearch/Dockerfile
+    container_name: bubing_elasticsearch
+    image: bubing_elasticsearch
+    env_file:
+      - ./.envs/.elasticsearch
+    volumes:
+      - bubing_elasticsearch_data:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the Elasticsearch user, set to at least 65536 on modern systems
+        hard: 65536
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - bubing-net
+  kibana:
+    image: amazon/opendistro-for-elasticsearch-kibana:latest
+    container_name: bubing_kibana
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      ELASTICSEARCH_URL: https://bubing_elasticsearch:9200
+      ELASTICSEARCH_HOSTS: https://bubing_elasticsearch:9200
+    networks:
+      - bubing-net
 
 volumes:
   bubing_crawler_data:
