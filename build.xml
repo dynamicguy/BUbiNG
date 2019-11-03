@@ -486,9 +486,17 @@
         <path refid="compile.classpath"/>
         <pathelement location="${build}"/>
     </path>
-    <property name="listen_ip" value="192.168.1.4"/>
 
-    <target name="crawl" depends="init,javacc,compile,jar" description="start crawl">
+    <target name="getMyIp">
+        <exec executable="/usr/sbin/ipconfig" outputproperty="currentIP">
+            <arg value="getifaddr"/>
+            <arg value="en0"/>
+        </exec>
+        <echo>currentIP : ${currentIP}</echo>
+        <property name="listen_ip" value="${currentIP}"/>
+    </target>
+
+    <target name="crawl" depends="getMyIp,init,javacc,compile,jar" description="start crawl">
         <java classpathref="classpath.path" classname="it.unimi.di.law.bubing.Agent"
               fork="true" maxmemory="4G" error="crawl_error.log" output="crawl_output.log">
             <jvmarg line="-server -Xss256K -Xms4G -XX:+UseNUMA -Djavax.net.ssl.sessionCacheSize=8192 -XX:+UseTLAB -XX:+ResizeTLAB -XX:NewRatio=4 -XX:MaxTenuringThreshold=15 -XX:+CMSParallelRemarkEnabled -verbose:gc -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 -Djava.rmi.server.hostname=${listen_ip} -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=${listen_ip} -Dlogback.configurationFile=${basedir}/bubing-logback.xml -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"/>
