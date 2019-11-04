@@ -488,15 +488,15 @@
     </path>
 
     <condition property="isMac">
-        <os family="mac" />
+        <os family="mac"/>
     </condition>
 
     <condition property="isWindows">
-        <os family="windows" />
+        <os family="windows"/>
     </condition>
 
     <condition property="isUnix">
-        <os family="unix" />
+        <os family="unix"/>
     </condition>
 
     <target name="getMacIp" if="isMac">
@@ -510,10 +510,10 @@
 
     <target name="getWinIp" if="isWindows">
         <exec executable="cmd" outputproperty="myHostName">
-            <arg value="/c" />
+            <arg value="/c"/>
             <arg value="hostname"/>
         </exec>
-        <exec executable="cmd" outputproperty="currentIP" >
+        <exec executable="cmd" outputproperty="currentIP">
             <arg value="/c"/>
             <arg value="FOR /f &quot;tokens=1 delims=:&quot; %d IN ('ping ${myHostName} -4 -n 1 ^| find /i &quot;reply&quot;') DO FOR /F &quot;tokens=3 delims= &quot; %g IN (&quot;%d&quot;) DO echo infraServerIP=%g"/>
         </exec>
@@ -534,7 +534,7 @@
     <target name="crawl" depends="getIp,init,javacc,compile,jar" description="start crawl">
         <java classpathref="classpath.path" classname="it.unimi.di.law.bubing.Agent"
               fork="true" maxmemory="4G" error="crawl_error.log" output="crawl_output.log">
-            <jvmarg line="-server -Xss256K -Xms4G -XX:+UseNUMA -Djavax.net.ssl.sessionCacheSize=8192 -XX:+UseTLAB -XX:+ResizeTLAB -XX:NewRatio=4 -XX:MaxTenuringThreshold=15 -XX:+CMSParallelRemarkEnabled -verbose:gc -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 -Djava.rmi.server.hostname=${listen_ip} -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=${listen_ip} -Dlogback.configurationFile=${basedir}/bubing-logback.xml -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"/>
+            <jvmarg line="-server -Xss256K -Xms2G -XX:+UseNUMA -Djavax.net.ssl.sessionCacheSize=8192 -XX:+UseTLAB -XX:+ResizeTLAB -XX:NewRatio=4 -XX:MaxTenuringThreshold=15 -XX:+CMSParallelRemarkEnabled -verbose:gc -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintSafepointStatistics -XX:PrintSafepointStatisticsCount=1 -Djava.rmi.server.hostname=${listen_ip} -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr=${listen_ip} -Dlogback.configurationFile=${basedir}/bubing-logback.xml -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"/>
             <arg line="-h ${listen_ip} -P ${basedir}/folklore.properties -g folklore agent -n"/>
         </java>
     </target>
