@@ -7,6 +7,10 @@ services:
       dockerfile: ./compose/Dockerfile
     container_name: bubing_crawler
     image: bubing_crawler
+    depends_on:
+      - kibana
+    env_file:
+      - ./.envs/.crawler
     volumes:
       - bubing_crawler_data:/usr/share/crawler/data
     ulimits:
@@ -44,6 +48,8 @@ services:
   kibana:
     image: amazon/opendistro-for-elasticsearch-kibana:latest
     container_name: bubing_kibana
+    depends_on:
+      - elasticsearch
     ports:
       - 5601:5601
     expose:

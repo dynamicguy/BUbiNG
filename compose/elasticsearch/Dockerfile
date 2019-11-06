@@ -1,4 +1,4 @@
-FROM amazon/opendistro-for-elasticsearch:latest
+FROM amazon/opendistro-for-elasticsearch:1.2.0
 RUN yum -y update
 RUN yum -y groupinstall "Development Tools"
 RUN yum -y install glibc.x86_64 cmake

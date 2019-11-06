@@ -88,6 +88,13 @@ curl -X PUT "https://localhost:9200/bubing/_doc/4" -u admin:admin --insecure -H 
   "my_vector": [5.5, 6.5],
   "price": 17,
   "name": "Guy"
+}'
+
+curl -X PUT "https://localhost:9200/bubing/_doc/5" -u admin:admin --insecure -H 'Content-Type: application/json' -d'
+{
+  "my_vector": [6.5, 7.5],
+  "price": 18,
+  "name": "Nurul Ferdous"
 }
 '
 ```
@@ -169,3 +176,14 @@ Start Crawl
 2. Then run the following ant command:
 
     ant clean crawl
+    
+Create a keystore for ES client
+-------------------------------
+    
+    keytool -genkeypair -dname "cn=Nurul Ferdous, ou=com.dynamicguy, o=dynamicguy, c=BD" -alias NurulF -keypass zaq123 -keystore bubing.jks -storepass zaq123 -validity 180
+    
+Download the root-ca.pem file from bubing_elasticsearch docker container and run:
+    
+    keytool -importcert -file root-ca.pem -keystore bubing.jks -alias "test"
+    
+Key store password is: zaq123

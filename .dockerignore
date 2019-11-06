@@ -22,3 +22,4 @@ bin/
 .vagrant
 *.log
 crawl_*
+certs/

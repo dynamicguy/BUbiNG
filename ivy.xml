@@ -65,6 +65,10 @@
 
 		<dependency org="org.umlgraph" name="umlgraph" rev="latest.release"/>
 
+		<!-- new dependencies for es storage -->
+		<dependency org="net.dankito.readability4j" name="readability4j" rev="1.0.4"/>
+		<dependency org="org.elasticsearch.client" name="elasticsearch-rest-high-level-client" rev="7.0.1"/>
+
 		<exclude org="org.slf4j" artifact="slf4j-log4j12"/>
 		<exclude org="log4j" artifact="log4j"/>
 		<exclude org="commons-httpclient" artifact="commons-httpclient"/> <!-- originally due to mg4j but not used here -->
