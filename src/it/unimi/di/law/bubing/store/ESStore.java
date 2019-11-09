@@ -97,7 +97,7 @@ public class ESStore implements Closeable, Store {
             document.put("title", title);
             document.put("name", byline);
             document.put("excerpt", excerpt);
-            document.put("text", extractedContentPlainText);
+            document.put("plain_text", extractedContentPlainText);
             document.put("html", extractedContentHtml);
             document.put("html_with_utf8", extractedContentHtmlWithUtf8Encoding);
             document.put("digest", Hex.encodeHexString(contentDigest));
