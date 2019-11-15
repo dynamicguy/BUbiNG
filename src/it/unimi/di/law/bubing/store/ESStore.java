@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class ESStore implements Closeable, Store {
 
     private static final String esDocType = "_doc";
 
-    private static final String esIndexName = "crawler";
+    private static final String esIndexName = "bubing";
 
     public ESStore(final RuntimeConfiguration rc) throws IOException {
         final File file = new File(rc.storeDir, STORE_NAME);
@@ -93,7 +94,6 @@ public class ESStore implements Closeable, Store {
             LOGGER.info("excerpt was: " + excerpt);
 
             Map<String, Object> document = new HashMap<>();
-            document.put("id", record.getWarcTargetURI().toString());
             document.put("title", title);
             document.put("name", byline);
             document.put("excerpt", excerpt);
@@ -103,9 +103,10 @@ public class ESStore implements Closeable, Store {
             document.put("digest", Hex.encodeHexString(contentDigest));
             document.put("warc_id", record.getWarcRecordId().toString());
             document.put("date", record.getWarcDate());
+            document.put("timestamp", new Date());
             document.put("status", response.getStatusLine().toString());
 
-            IndexRequest indexRequest = new IndexRequest(esIndexName, esDocType, record.getWarcTargetURI().toString()).source(document);
+            IndexRequest indexRequest = new IndexRequest(esIndexName).id(record.getWarcTargetURI().toString()).source(document);
             IndexResponse indexResponse = esClient.index(indexRequest, RequestOptions.DEFAULT);
             LOGGER.info("ES index response  was: " + indexResponse.toString());
 
